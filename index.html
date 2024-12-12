@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix & Build House</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+
+    <header>
+        <h1>Ej Builders</h1>
+        <nav>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#booking">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <img src="construction-worker.jpg" style="width:100%; height:600px;">
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="service">
+            <h3>House Repairs</h3>
+            <p>Professional house repair services for every need.</p>
+        </div>
+        <div class="service">
+            <h3>New Constructions</h3>
+            <p>Build your dream home with our experts.</p>
+        </div>
+        <div class="service">
+            <h3>Custom Renovations</h3>
+            <p>Modernize your home with customized renovations.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about_container" style="display: flex; align-items: center;">
+            <img src="young-craftsman-building-house.jpg" style="width:400px; height:500px;">
+            <div class="about_content">
+                <h2>About Us</h2>
+                <p>At Fix & Build, we specialize in top-notch construction and renovation services. 
+                    With years of experience and a team of dedicated professionals, we turn your vision into reality. 
+                    Trust us to create safe, functional, and beautifully designed spaces tailored to your needs.    
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking">
+        <h2>Book Our Services</h2>
+        <form id="bookingForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="service">Select Service:</label>
+            <select id="service" name="service" required>
+                <option value="repairs">House Repairs</option>
+                <option value="construction">New Construction</option>
+                <option value="renovation" selected="selected">Custom Renovation</option>
+            </select>
+
+            <div class="more_details" style="display: none;">
+                <label>Provide more details for your house repair</label>
+                <input type="text" name="details">
+            </div>
+
+            <label for="date">Preferred Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="submit">Book Now</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fix & Build House. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+       // Handle form submission
+document.getElementById('bookingForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting
+
+    // Retrieve form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const service = document.getElementById('service').value;
+    const date = document.getElementById('date').value;
+
+    // Retrieve details value if visible
+    const detailsInput = document.querySelector('.more_details input');
+    const details = detailsInput && detailsInput.offsetParent !== null ? detailsInput.value : '';
+
+    // Create booking object
+    const booking = {
+        name: name,
+        email: email,
+        service: service,
+        date: date,
+        details: details
+    };
+
+    // Get existing bookings from localStorage
+    const existingBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+    // Add new booking to the array
+    existingBookings.push(booking);
+
+    // Save updated array back to localStorage
+    localStorage.setItem('bookings', JSON.stringify(existingBookings));
+
+    // Notify user and clear form
+    alert('Your booking has been saved!');
+    document.getElementById('bookingForm').reset();
+});
+
+// Toggle more details input based on selected service
+document.getElementById('service').addEventListener('change', function() {
+    const moreDetailsDiv = document.querySelector('.more_details');
+
+    if (this.value === 'repairs') {
+        moreDetailsDiv.style.display = 'block';
+    } else {
+        moreDetailsDiv.style.display = 'none';
+    }
+});
+
+    </script>
+</body>
+</html>
